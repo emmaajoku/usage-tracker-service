@@ -1,0 +1,147 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "usageTracker-service"
+  namespace: "default"
+  labels:
+    app: "usageTracker-service"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "usageTracker-service"
+  template:
+    metadata:
+      labels:
+        app: "usageTracker-service"
+    spec:
+      containers:
+      - name: "usageTracker-service"
+        image: "gcr.io/getcarbon/github.com/getcarbon/usageTracker-service:latest"
+        ports:
+        - containerPort: 80
+          protocol: TCP
+          name: http
+        resources:
+            requests:
+              memory: '1024Mi'
+              cpu: '1000m'
+            limits: 
+              memory: '1024Mi'
+              cpu: '1000m'
+        env:
+        - name: "DATABASE_HOST"
+          valueFrom:
+            configMapKeyRef:
+              key: "DATABASE_HOST"
+              name: "usageTracker-service-config-ngtd"
+        - name: "DATABASE_PORT"
+          valueFrom:
+            configMapKeyRef:
+              key: "DATABASE_PORT"
+              name: "usageTracker-service-config-ngtd"
+        - name: "DATABASE_USERNAME"
+          valueFrom:
+            configMapKeyRef:
+              key: "DATABASE_USERNAME"
+              name: "usageTracker-service-config-ngtd"
+        - name: "DATABASE_PASSWORD"
+          valueFrom:
+            configMapKeyRef:
+              key: "DATABASE_PASSWORD"
+              name: "usageTracker-service-config-ngtd"
+        - name: "DATABASE_NAME"
+          valueFrom:
+            configMapKeyRef:
+              key: "DATABASE_NAME"
+              name: "usageTracker-service-config-ngtd"
+        - name: "DATABASE_TYPE"
+          valueFrom:
+            configMapKeyRef:
+              key: "DATABASE_TYPE"
+              name: "usageTracker-service-config-ngtd"
+        - name: "DATABASE_CONNECTION_TIME_OUT"
+          valueFrom:
+            configMapKeyRef:
+              key: "DATABASE_CONNECTION_TIME_OUT"
+              name: "usageTracker-service-config-ngtd"
+        - name: "DATABASE_ACQUIRE_TIME_OUT"
+          valueFrom:
+            configMapKeyRef:
+              key: "DATABASE_ACQUIRE_TIME_OUT"
+              name: "usageTracker-service-config-ngtd"
+        - name: "DATABASE_CONNECTION_LIMIT"
+          valueFrom:
+            configMapKeyRef:
+              key: "DATABASE_CONNECTION_LIMIT"
+              name: "usageTracker-service-config-ngtd"
+        - name: "RACCOON_REDIS_URL"
+          valueFrom:
+            configMapKeyRef:
+              key: "RACCOON_REDIS_URL"
+              name: "usageTracker-service-config-ngtd"
+        - name: "EXTERNAL_DATABASE_USERNAME"
+          valueFrom:
+            configMapKeyRef:
+              key: "EXTERNAL_DATABASE_USERNAME"
+              name: "usageTracker-service-config-ngtd"
+        - name: "EXTERNAL_DATABASE_HOST"
+          valueFrom:
+            configMapKeyRef:
+              key: "EXTERNAL_DATABASE_HOST"
+              name: "usageTracker-service-config-ngtd"
+        - name: "EXTERNAL_DATABASE_PASSWORD"
+          valueFrom:
+            configMapKeyRef:
+              key: "EXTERNAL_DATABASE_PASSWORD"
+              name: "usageTracker-service-config-ngtd"
+        - name: "EXTERNAL_DATABASE_NAME"
+          valueFrom:
+            configMapKeyRef:
+              key: "EXTERNAL_DATABASE_NAME"
+              name: "usageTracker-service-config-ngtd"
+        - name: "DATABASE_URL"
+          valueFrom:
+            configMapKeyRef:
+              key: "DATABASE_URL"
+              name: "usageTracker-service-config-ngtd"
+        - name: "NODE_ENV"
+          valueFrom:
+            configMapKeyRef:
+              key: "NODE_ENV"
+              name: "usageTracker-service-config-ngtd"
+        - name: "NODE_PATH"
+          valueFrom:
+            configMapKeyRef:
+              key: "NODE_PATH"
+              name: "usageTracker-service-config-ngtd"
+        - name: "LOG_PATH"
+          valueFrom:
+            configMapKeyRef:
+              key: "LOG_PATH"
+              name: "usageTracker-service-config-ngtd"
+        - name: "LOG_LEVEL"
+          valueFrom:
+            configMapKeyRef:
+              key: "LOG_LEVEL"
+              name: "usageTracker-service-config-ngtd"
+        - name: "LOG_ENABLE_CONSOLE"
+          valueFrom:
+            configMapKeyRef:
+              key: "LOG_ENABLE_CONSOLE"
+              name: "usageTracker-service-config-ngtd"
+        - name: "REDIS_DB"
+          valueFrom:
+            configMapKeyRef:
+              key: "REDIS_DB"
+              name: "usageTracker-service-config-ngtd"
+        - name: "REDIS_PORT"
+          valueFrom:
+            configMapKeyRef:
+              key: "REDIS_PORT"
+              name: "usageTracker-service-config-ngtd"
+        - name: "REDIS_HOST"
+          valueFrom:
+            configMapKeyRef:
+              key: "REDIS_HOST"
+              name: "usageTracker-service-config-ngtd"

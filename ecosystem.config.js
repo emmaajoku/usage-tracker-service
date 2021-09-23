@@ -1,0 +1,13 @@
+module.exports = {
+  apps : [{
+    name: 'UsageTrackerService',
+    script: 'yarn start:prod',
+
+    // Options reference: https://pm2.keymetrics.io/docs/usage/application-declaration/
+    args: 'server.ts',
+    instances: 1,
+    autorestart: true,
+    watch: false,
+    max_memory_restart: '1G',
+  }],
+};

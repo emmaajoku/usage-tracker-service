@@ -1,0 +1,27 @@
+# Web-app specific override file. The "docker-compose up -d" command will, by default, find and run the
+# docker-compose.yml file and create those services.
+
+# However, to also create and run this service in the background (for API testing) you must run:
+# docker-compose -f docker-compose.yml -f docker-compose.web_app.yml up -d
+version: '2'
+services:
+  web_app:
+      build: .
+      container_name: usageTracker_web_app
+
+      # Expose the internal 8080 port, you can also ignore specify host port mapping. Docker will map it as it pleases and
+      # prevent clashes to existing ports.
+      ports:
+          - 8000
+
+      # Set the default environment variables when we run it via compose.
+      env_file:
+          - ./.env
+
+      # Map the exposed folder volumes to the directories within our repos.
+      volumes:
+          - .:/src
+          - ./docker_logs/usageTracker:/var/log/applications/usageTracker
+
+      networks:
+          - main_network

@@ -1,0 +1,39 @@
+# Base Docker Compose File. We assume usage of redis by most (all) APIs due to usage of OAuth by all services
+# We also assume MySQL usage in our code.
+version: '2'
+services:
+    redis:
+        container_name: usageTracker_redis
+        image: redis
+        ports:
+            - "6379"
+        networks:
+            - main_network
+    database:
+        container_name: usageTracker_mysql
+        image: mysql:5.7
+        ports:
+          - "3306"
+        environment:
+            MYSQL_USER: "usageTracker"
+            MYSQL_PASSWORD: "usageTracker"
+            MYSQL_DATABASE: "usageTracker"
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+            
+        networks:
+            - main_network
+
+    adminer:
+        image: adminer
+        container_name: usageTracker_mysql_client_web
+        restart: always
+        ports:
+            - 10000:8080
+        networks:
+            - main_network
+networks:
+    main_network:
+        driver: bridge
+
+
+        
