@@ -3,21 +3,21 @@
 version: '2'
 services:
     redis:
-        container_name: usageTracker_redis
+        container_name: usagetracker_redis
         image: redis
         ports:
             - "6379"
         networks:
             - main_network
     database:
-        container_name: usageTracker_mysql
+        container_name: usagetracker_mysql
         image: mysql:5.7
         ports:
           - "3306"
         environment:
-            MYSQL_USER: "usageTracker"
-            MYSQL_PASSWORD: "usageTracker"
-            MYSQL_DATABASE: "usageTracker"
+            MYSQL_USER: "usagetracker"
+            MYSQL_PASSWORD: "usagetracker"
+            MYSQL_DATABASE: "usagetracker"
             MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
             
         networks:
@@ -25,7 +25,7 @@ services:
 
     adminer:
         image: adminer
-        container_name: usageTracker_mysql_client_web
+        container_name: usagetracker_mysql_client_web
         restart: always
         ports:
             - 10000:8080

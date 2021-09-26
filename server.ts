@@ -39,7 +39,7 @@ async function bootstrap() {
   if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'staging') {
     const documentOptions = new DocumentBuilder()
     .setTitle('UsageTracker Service')
-    .setDescription('GetCarbon usageTracker service')
+    .setDescription('GetCarbon usage-tracker service')
     .setVersion('v1')
     .build();
     const document = SwaggerModule.createDocument(app, documentOptions);

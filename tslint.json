@@ -4,7 +4,7 @@
   "jsUsageTrackers": {
     "no-unused-expression": true
   },
-  "usageTrackers": {
+  "usage-trackers": {
     "quotemark": [true, "single"],
     "member-access": [false],
     "ordered-imports": [false],
@@ -15,5 +15,5 @@
     "variable-name": [true, "allow-snake-case"],
     "object-literal-sort-keys": false
   },
-  "usageTrackersDirectory": []
+  "usage-trackersDirectory": []
 }

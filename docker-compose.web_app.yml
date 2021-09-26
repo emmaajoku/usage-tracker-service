@@ -7,7 +7,7 @@ version: '2'
 services:
   web_app:
       build: .
-      container_name: usageTracker_web_app
+      container_name: usage-tracker_web_app
 
       # Expose the internal 8080 port, you can also ignore specify host port mapping. Docker will map it as it pleases and
       # prevent clashes to existing ports.
@@ -21,7 +21,7 @@ services:
       # Map the exposed folder volumes to the directories within our repos.
       volumes:
           - .:/src
-          - ./docker_logs/usageTracker:/var/log/applications/usageTracker
+          - ./docker_logs/usage-tracker:/var/log/applications/usage-tracker
 
       networks:
           - main_network

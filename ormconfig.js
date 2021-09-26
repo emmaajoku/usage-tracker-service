@@ -23,7 +23,7 @@ module.exports = [
     "password": PASSWORD,
     "database": DATABASENAME,
     "port": DATABASEPORT,
-    "synchronize": false,
+    "synchronize": true,
     "autoLoadEntities": true,
     "useUnifiedTopology": true,
     "useNewUrlParser": true,
@@ -35,6 +35,7 @@ module.exports = [
     "migrations": [
       "dist/migrations/*.js"
     ],
+    
     "dropSchema": false,
     "logging": false,
     "entities": [ __dirname + "/dist/**/*.entity.js"],
@@ -43,6 +44,16 @@ module.exports = [
       "entitiesDir": "app",
       "migrationsDir": "migrations",
       "subscribersDir": "subscriber"
+    }
+  },
+  {
+    "name": 'seed',
+    "migrations": [
+      'src/seeds/*.ts'
+    ],
+    "cli": {
+      "entitiesDir": "app",
+      "migrationsDir": 'src/seeds',
     }
   }
 ]

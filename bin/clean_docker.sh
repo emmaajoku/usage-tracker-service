@@ -1,4 +1,4 @@
-IMAGE_NAME="usageTracker_web_app"
+IMAGE_NAME="usage-tracker_web_app"
 
 echo " ----- Stopping Docker Containers Started From Image -----"
 

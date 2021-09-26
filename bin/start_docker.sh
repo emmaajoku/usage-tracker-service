@@ -1,4 +1,4 @@
-IMAGE_NAME="usageTracker_web_app"
+IMAGE_NAME="usage-tracker_web_app"
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 ROOT="$(dirname "${SCRIPT_DIR}")"
@@ -10,7 +10,7 @@ else
     echo " ----- Web App Image Available for Use. -----"
 fi
 
-PROJECT_NAME="usageTracker"
+PROJECT_NAME="usage-tracker"
 
 CURRENT_DOCKER_COMPOSE_VERSION=$( docker-compose -v | grep -o '[0-9]*[.][0-9]*[.][0-9]' | sed -e 's/[.]//g' )
 # BREAKING_DOCKER_COMPOSE_VERSION=1210
@@ -31,7 +31,7 @@ docker run \
     -p 5858 \
     -v ${ROOT}:/src \
     --env-file=${ROOT}/.env \
-    --network=usageTracker_main_network \
+    --network=usage-tracker_main_network \
     ${IMAGE_NAME} \
     bash
 

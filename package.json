@@ -29,14 +29,17 @@
     "migration:create": "yarn run typeorm migration:create -n",
     "migration:run": "yarn run typeorm migration:run",
     "generate-schema": "cat app/*/*.prisma > prisma/schema.prisma",
-    "migrate": "prisma generate && prisma db push"
+    "migrate": "prisma generate && prisma db push",
+    "seed:generate": "ts-node typeorm migration:generate -c seed -n ",
+    "seed:run": "ts-node typeorm migration:run -c seed",
+    "seed:revert": "ts-node typeorm migration:revert -c seed"
   },
   "repository": {
     "type": "git",
     "url": ""
   },
   "keywords": [
-    "usageTracker",
+    "usage-tracker",
     "micro-service",
     "API"
   ],
@@ -71,7 +74,6 @@
     "helmet": "^3.21.2",
     "ioredis": "^4.14.1",
     "lodash": "^4.17.15",
-    "md5": "^2.3.0",
     "moment": "^2.29.1",
     "mongoose": "^5.13.3",
     "mysql": "^2.18.1",
@@ -86,10 +88,7 @@
     "redis": "~2.6.x",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.6.3",
-    "shortid": "^2.2.16",
-    "typeorm": "^0.2.22",
-    "valid-url": "^1.0.9"
+    "rxjs": "^6.6.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.5.1",

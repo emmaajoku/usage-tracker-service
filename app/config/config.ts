@@ -1,4 +1,4 @@
-const appName: string = 'usageTracker_service';
+const appName: string = 'usage-tracker_service';
 
 export const config = {
     appName,
