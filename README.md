@@ -1,8 +1,5 @@
 # Usagetracker Service API
 
-## Description
-This application is responsible for managing usage-tracker data in konga. This service is called when rating products and merchants.
-
 ## Running the application
 This application depends on a couple of services to run fully. The command below would build and start all dependent containers and take you into the bash temrinal of the main (`usage-tracker`) container:
 
