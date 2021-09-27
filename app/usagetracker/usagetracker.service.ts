@@ -2,7 +2,7 @@ import { RateRepository } from './../rates/rates.repositoy';
 import { RegistrationRepository } from '../registration/registration.repository';
 import { CreateUsageTrackerDto } from './dto/createusagetracker.dto';
 import { UsageTrackerRepository } from './usagetracker.repository';
-import { Injectable, BadRequestException, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PaymentRepository } from 'app/payment-due/payment.repository';
 
 
@@ -27,8 +27,8 @@ export class UsageTrackerService {
 
      if (companyResult && companyResult?.id) {
        const usageData  = await this.usageTrackerRepository.getUsagetrackerByCompany(companyResult.id)
+
         if (usageData && usageData.id) {
-          usageData.counter
           const rateData = await this.getRates(usageData.counter);
 
         const paymentDueData = {
@@ -36,8 +36,8 @@ export class UsageTrackerService {
           total_requests: usageData.counter,
           total_amount_due: rateData
         }
-          const paymentId =  await this.paymentRepository.getPaymentDueByCompany(companyResult.id)
-          this.paymentRepository.saveCompanyForAccount(paymentId.id,paymentDueData)
+          const paymentId = await this.paymentRepository.getPaymentDueByCompany(companyResult.id);
+          await this.paymentRepository.saveCompanyForAccount(paymentId.id, paymentDueData);
           clickCount = usageData.counter;
         }
         clickCount++;
@@ -46,6 +46,8 @@ export class UsageTrackerService {
         }
           const result: unknown = await this.usageTrackerRepository.createUsagetracker(usageData.id, usageUpdateData);
           return result;
+        } else {
+          throw new BadRequestException('Unable to verify your company registration, please check the comapany email try again')
         }
      }
     
@@ -86,9 +88,5 @@ export class UsageTrackerService {
 
   }
 
-
-  async getActualyLimitCharge(id: number) {
-
-  }
 
 }
