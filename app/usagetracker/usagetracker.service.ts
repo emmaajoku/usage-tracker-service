@@ -38,18 +38,35 @@ export class UsageTrackerService {
               company: companyResult.id
           }
           const rateData = await this.getRates(clickCount);
+          const   months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+          const d = new Date();
+          const monthName = months[d.getMonth()]; // "July" (or current month)
+          const date = new Date();
+          const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+          const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-        const paymentDueData = {
-          company: companyResult.id,
-          total_requests: clickCount,
-          total_amount_due: rateData
-        }
+          let paymentDueData = {
+            company: companyResult.id,
+            total_requests: clickCount,
+            total_amount_due: rateData,
+            duration: monthName
+          }
+
+          if (usageData && usageData?.id && firstDay <= lastDay) {
           const paymentId = await this.paymentRepository.getPaymentDueByCompany(companyResult.id);
-          
           await this.paymentRepository.saveCompanyForAccount(paymentId?.id, paymentDueData);
+          } else {
+            let paymentDueData = {
+              company: companyResult.id,
+              total_requests: clickCount,
+              total_amount_due: rateData,
+              duration: monthName,
+            }
+            await this.paymentRepository.createCompanyForAccount(paymentDueData); 
+          }
 
           let result;
-          if (usageData && usageData?.id) {
+          if (usageData && usageData?.id && firstDay <= lastDay) {
              result = await this.usageTrackerRepository.saveUsagetracker(usageData.id, usageUpdateData);
           } else {
              result =  await this.usageTrackerRepository.createUsagetracker(usageUpdateData);

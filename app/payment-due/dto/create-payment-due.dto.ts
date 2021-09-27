@@ -5,4 +5,5 @@ export class CreatePaymentDueDto {
     readonly total_requests: string;
     readonly total_amount_due: string;
     readonly payment_status: string;
+    readonly duration: string;
 }

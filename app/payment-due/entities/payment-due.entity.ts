@@ -17,7 +17,10 @@ export class PaymentDue {
 
     @Column({type: 'varchar', nullable : false, default: 'unpaid'})
     payment_status: string;
-  
+
+    @Column({type: 'varchar', nullable : true})
+    duration: string;
+    
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     public created_at: Date;
   
