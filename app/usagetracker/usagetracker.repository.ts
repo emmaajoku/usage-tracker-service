@@ -34,10 +34,19 @@ export class UsageTrackerRepository extends Repository <UsagetrackerEntity> {
      * @param usageData 
      * @returns 
      */
-    async createUsagetracker(id: number, usageData) {
+    async saveUsagetracker(id: number, usageData) {
         return this.save({ ...usageData, id: Number(id) });
     }
 
+    /**
+     * 
+     * @param id 
+     * @param usageData 
+     * @returns 
+     */
+    async createUsagetracker(usageData) {
+        return this.save({...usageData});
+    }
     /**
      * 
      * @param id 

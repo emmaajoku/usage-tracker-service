@@ -50,7 +50,7 @@ export class RegistrationRepository extends Repository <Registration> {
      * @param createRegistrationDto 
      * @returns 
      */
-    async createCompanyAccount(createRegistrationDto: CreateRegistrationDto): Promise<object> {
+    async createCompanyAccount(createRegistrationDto: CreateRegistrationDto): Promise<Registration> {
         try {
             return this.save({ ...createRegistrationDto });
         } catch (error) {

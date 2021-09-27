@@ -9,12 +9,6 @@ const DATABASECONNECTIONTIMEOUT = parseInt(process.env.DATABASE_CONNECTION_TIME_
 const DATABASEACQUIRETIMEOUT = parseInt(process.env.DATABASE_ACQUIRE_TIME_OUT);
 const DATABASECONNECTIONLIMIT = parseInt(process.env.DATABASE_CONNECTION_LIMIT);
 
-const EXTERNAL_HOST = process.env.EXTERNAL_DATABASE_HOST;
-const EXTERNAL_USER = process.env.EXTERNAL_DATABASE_USERNAME;
-const EXTERNAL_PASSWORD = process.env.EXTERNAL_DATABASE_PASSWORD;
-const EXTERNAL_DATABASE = process.env.EXTERNAL_DATABASE_NAME;
-
-
 module.exports = [
   {
     "type": DATABASETYPE,
@@ -45,5 +39,5 @@ module.exports = [
       "migrationsDir": "migrations",
       "subscribersDir": "subscriber"
     }
-  }
+  },
 ]

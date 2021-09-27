@@ -1,26 +1,40 @@
+import { PaymentRepository } from '../payment-due/payment.repository';
 import { RegistrationRepository } from './registration.repository';
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateRegistrationDto } from './dto/create-registration.dto';
-import { UpdateRegistrationDto } from './dto/update-registration.dto';
 
 @Injectable()
 export class RegistrationService {
   constructor(
-    private repository: RegistrationRepository
+    private registrationRepository: RegistrationRepository,
+    private paymentRepository: PaymentRepository
   ) {
     
   }
 
   async createCompanyAccount(createRegistrationDto: CreateRegistrationDto) {
-    return await this.repository.createCompanyAccount(createRegistrationDto)
+    const result = await this.registrationRepository.createCompanyAccount(createRegistrationDto)
+    const paymentDueData = {
+      company: result.id
+    }
+  
+    const paymentInf = await this.paymentRepository.getPaymentDueByCompany(result.id)
+
+    if (paymentInf && paymentInf?.id) {
+      await this.paymentRepository.saveCompanyForAccount(paymentInf.id, paymentDueData)
+    } else {
+    await this.paymentRepository.createCompanyForAccount(paymentDueData)
+    }
+
+    return result;
   }
 
   async getRegisterCompanyById(id: number) {
-    return await this.repository.getRegisterCompanyById(id)
+    return await this.registrationRepository.getRegisterCompanyById(id)
   }
 
   async getRegisterCompanyByEmail(email: string) {
-    return await this.repository.getRegisterCompanyByEmail(email)
+    return await this.registrationRepository.getRegisterCompanyByEmail(email)
   }
 
 }

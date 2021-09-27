@@ -1,6 +1,7 @@
 import { PaymentDue } from './entities/payment-due.entity';
 import {EntityRepository, Repository} from 'typeorm';
 import { InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { CreatePaymentDueDto } from './dto/create-payment-due.dto';
 
 @EntityRepository(PaymentDue)
 export class PaymentRepository extends Repository <PaymentDue> {
@@ -26,13 +27,13 @@ export class PaymentRepository extends Repository <PaymentDue> {
 
     /**
      * 
-     * @param company 
+     * @param company
      * @returns 
      */
-    async getPaymentDueByCompany(company: number): Promise<PaymentDue> {
+     async getPaymentDueByCompany(company: number): Promise<PaymentDue> {
         try {
-            const result: any = await this.findOne(company);
-            
+            const result: any = await this.findOne({where: {company}});
+
             if (!result) {
                 throw new NotFoundException (`A Register company with id: ${company}  not found`);
             }
@@ -41,7 +42,6 @@ export class PaymentRepository extends Repository <PaymentDue> {
             throw new InternalServerErrorException(error);
         }
     }
-
     /**
      * 
      * @param id 
@@ -58,7 +58,7 @@ export class PaymentRepository extends Repository <PaymentDue> {
      * @returns 
      */
     async createCompanyForAccount(usageData) {
-        return this.create(usageData);
+        return this.insert({...usageData});
     }
 
 

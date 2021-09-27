@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { PaymentDueService } from './payment-due.service';
 import { CreatePaymentDueDto } from './dto/create-payment-due.dto';
 import { UpdatePaymentDueDto } from './dto/update-payment-due.dto';
+import { PayementDataQuery } from 'app/lib/utils';
 
-@Controller('payment-due')
+@Controller('payment')
 export class PaymentDueController {
   constructor(private readonly paymentDueService: PaymentDueService) {}
 
@@ -12,9 +13,9 @@ export class PaymentDueController {
    * @param email 
    * @returns 
    */
-   @Get(':email')
-   async getPaymentDueByCompany(@Param('email') email: string) {
-      return await this.paymentDueService.getPaymentDueForACompany(email);
+   @Get('')
+   async getPaymentDueByCompany(@Query() params: PayementDataQuery) {
+      return await this.paymentDueService.getPaymentDueForACompany(params.email);
    }
  
  

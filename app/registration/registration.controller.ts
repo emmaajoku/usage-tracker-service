@@ -6,7 +6,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 export class RegistrationController {
     constructor(private readonly registrationService: RegistrationService) {}
 
-  
+
      @Post('')
      async createCompanyAccount(@Body() createRegistrationDto: CreateRegistrationDto): Promise<any> {
        return await this.registrationService.createCompanyAccount(createRegistrationDto);

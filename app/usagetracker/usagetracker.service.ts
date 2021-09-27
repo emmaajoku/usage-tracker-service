@@ -2,7 +2,7 @@ import { RateRepository } from './../rates/rates.repositoy';
 import { RegistrationRepository } from '../registration/registration.repository';
 import { CreateUsageTrackerDto } from './dto/createusagetracker.dto';
 import { UsageTrackerRepository } from './usagetracker.repository';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { PaymentRepository } from 'app/payment-due/payment.repository';
 
 
@@ -22,29 +22,38 @@ export class UsageTrackerService {
  * @returns 
  */
   async saveUsageTracker(createUsageTrackerDto: CreateUsageTrackerDto): Promise<unknown> {
-    let clickCount: number;
+    let clickCount: number = 0;
      const companyResult = await this.registrationRepository.getRegisterCompanyByEmail(createUsageTrackerDto.email);
 
      if (companyResult && companyResult?.id) {
+       Logger.log(companyResult.id)
        const usageData  = await this.usageTrackerRepository.getUsagetrackerByCompany(companyResult.id)
 
-        if (usageData && usageData.id) {
-          const rateData = await this.getRates(usageData.counter);
+        if (usageData && usageData?.id) { 
+          clickCount = usageData.counter;
+          }      
+          clickCount++;
+          const usageUpdateData = {
+              counter: clickCount,
+              company: companyResult.id
+          }
+          const rateData = await this.getRates(clickCount);
 
         const paymentDueData = {
           company: companyResult.id,
-          total_requests: usageData.counter,
+          total_requests: clickCount,
           total_amount_due: rateData
         }
           const paymentId = await this.paymentRepository.getPaymentDueByCompany(companyResult.id);
-          await this.paymentRepository.saveCompanyForAccount(paymentId.id, paymentDueData);
-          clickCount = usageData.counter;
-        }
-        clickCount++;
-        const usageUpdateData = {
-            counter: clickCount || 0
-        }
-          const result: unknown = await this.usageTrackerRepository.createUsagetracker(usageData.id, usageUpdateData);
+          
+          await this.paymentRepository.saveCompanyForAccount(paymentId?.id, paymentDueData);
+
+          let result;
+          if (usageData && usageData?.id) {
+             result = await this.usageTrackerRepository.saveUsagetracker(usageData.id, usageUpdateData);
+          } else {
+             result =  await this.usageTrackerRepository.createUsagetracker(usageUpdateData);
+          }
           return result;
         } else {
           throw new BadRequestException('Unable to verify your company registration, please check the comapany email try again')

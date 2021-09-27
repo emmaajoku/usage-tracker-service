@@ -9,7 +9,7 @@ export class Registration {
     @Column({type: 'varchar', nullable : true})
     company_name: string;
 
-    @Column({type: 'varchar', nullable : true})
+    @Column({type: 'varchar', nullable : false, unique: true})
     email: string;
 
     @Column({type: 'varchar', nullable : true})
