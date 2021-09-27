@@ -27,12 +27,7 @@
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migration:generate": "yarn run typeorm migration:generate -n",
     "migration:create": "yarn run typeorm migration:create -n",
-    "migration:run": "yarn run typeorm migration:run",
-    "generate-schema": "cat app/*/*.prisma > prisma/schema.prisma",
-    "migrate": "prisma generate && prisma db push",
-    "seed:generate": "ts-node typeorm migration:generate -c seed -n ",
-    "seed:run": "ts-node typeorm migration:run -c seed",
-    "seed:revert": "ts-node typeorm migration:revert -c seed"
+    "migration:run": "yarn run typeorm migration:run"
   },
   "repository": {
     "type": "git",

@@ -1,4 +1,4 @@
-import { RegistrationRepository } from './registration.respository';
+import { RegistrationRepository } from './registration.repository';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RegistrationService } from './registration.service';

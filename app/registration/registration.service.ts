@@ -1,4 +1,4 @@
-import { RegistrationRepository } from './registration.respository';
+import { RegistrationRepository } from './registration.repository';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateRegistrationDto } from './dto/create-registration.dto';
 import { UpdateRegistrationDto } from './dto/update-registration.dto';

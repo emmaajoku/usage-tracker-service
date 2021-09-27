@@ -12,7 +12,10 @@ export class Rate {
     @Column({type: 'varchar', nullable : true})
     total_request_to: string;
 
-    @Column({type: 'varchar', nullable : true})
+    @Column({type: 'int', nullable : true})
+    average_band: number;
+    
+    @Column({type: 'varchar', length: '20', nullable : true})
     rate: string;
     
 }

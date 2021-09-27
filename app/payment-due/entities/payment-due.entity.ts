@@ -6,15 +6,17 @@ export class PaymentDue {
     @PrimaryGeneratedColumn()
     id: number;
   
-    @ManyToOne(() => Registration)
-    @JoinColumn({name : 'company_id'})
-    company_id: Registration;
-    
+    @ManyToOne(() => Registration, x => x.id)
+    company?: number;
+  
     @Column({type: 'varchar', nullable : false, default: '0'})
     total_requests: string;
 
     @Column({type: 'varchar', nullable : false, default: '0'})
     total_amount_due: string;
+
+    @Column({type: 'varchar', nullable : false, default: 'unpaid'})
+    payment_status: string;
   
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     public created_at: Date;

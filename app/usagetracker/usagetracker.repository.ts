@@ -1,5 +1,5 @@
 import {EntityRepository, Repository} from 'typeorm';
-import { NotFoundException } from '@nestjs/common';
+import { NotFoundException, Logger } from '@nestjs/common';
 import { UsagetrackerEntity } from './entities/usagetracker.entity';
 
 @EntityRepository(UsagetrackerEntity)

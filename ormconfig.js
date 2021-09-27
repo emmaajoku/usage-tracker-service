@@ -45,15 +45,5 @@ module.exports = [
       "migrationsDir": "migrations",
       "subscribersDir": "subscriber"
     }
-  },
-  {
-    "name": 'seed',
-    "migrations": [
-      'src/seeds/*.ts'
-    ],
-    "cli": {
-      "entitiesDir": "app",
-      "migrationsDir": 'src/seeds',
-    }
   }
 ]
