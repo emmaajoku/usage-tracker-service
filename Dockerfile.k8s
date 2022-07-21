@@ -1,5 +1,5 @@
 # Use the predefined node base image for this module.
-FROM node:12.18.1
+FROM node:14.15.0
 
 # create the log directory
 RUN mkdir -p /var/log/applications/usage-tracker
